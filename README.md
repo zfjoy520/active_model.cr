@@ -49,19 +49,19 @@ ActiveModel comes with a set of built-in validators:
 class Foo
 
   # Presence
-  validates :name, { presence : true }
+  validates :name, { presence: true }
 
   # Numericality
-  validates :amount, { numericality : true } # is a number
-  validates :amount, { numericality : { only_integer: true } } # is an integer
-  validates :amount, { numericality : { greater_than: 0 } } # > other number
-  validates :amount, { numericality : { greater_than_or_equal_to: 0 } } # >= other number
-  validates :amount, { numericality : { equal_to: 0 } } # == other number
-  validates :amount, { numericality : { less_than: 0 } } # < other number
-  validates :amount, { numericality : { less_than_or_equal_to: 0 } } # <= other number
-  validates :amount, { numericality : { odd: true } } # is odd
-  validates :amount, { numericality : { even: true } } # is even
-  validates :amount, { numericality : { other_than: 0 } } # != other number
+  validates :amount, { numericality: true } # is a number
+  validates :amount, { numericality: { only_integer: true } } # is an integer
+  validates :amount, { numericality: { greater_than: 0 } } # > other number
+  validates :amount, { numericality: { greater_than_or_equal_to: 0 } } # >= other number
+  validates :amount, { numericality: { equal_to: 0 } } # == other number
+  validates :amount, { numericality: { less_than: 0 } } # < other number
+  validates :amount, { numericality: { less_than_or_equal_to: 0 } } # <= other number
+  validates :amount, { numericality: { odd: true } } # is odd
+  validates :amount, { numericality: { even: true } } # is even
+  validates :amount, { numericality: { other_than: 0 } } # != other number
 
 end
 ```

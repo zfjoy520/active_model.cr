@@ -4,9 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 ### Added
+- Add `assure_compilation` specs folder with more "real" use cases.
 - `NumericalityValidator`: check if a value contains a valid number. Options:
   `only_integer`, `greater_than`, `greater_than_or_equal_to`, `equal_to`,
   `less_than`, `less_than_or_equal_to`, `odd`, `even`, and `other_than`.
+
+### Fix
+- Readme instructions were broken.
 
 ## 0.0.1 - 2015-08-28
 ### Added

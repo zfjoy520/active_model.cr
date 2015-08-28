@@ -37,6 +37,8 @@ module ActiveModel
         case name
         when :presence
           Validators::PresenceValidator
+        when :numericality
+          Validators::NumericalityValidator
         else
           raise ArgumentError.new("Invalid validator \"#{name}\"")
         end
