@@ -3,7 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
-Nothing yet!
+### Added
+- `NumericalityValidator`: check if a value contains a valid number.
 
 ## 0.0.1 - 2015-08-28
 ### Added

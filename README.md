@@ -24,6 +24,7 @@ class Person
   include ActiveModel
 
   validates [:name, :age] { presence: true }
+  validates :age, numericality: true
 
   def initialize(@name, @age)
   end

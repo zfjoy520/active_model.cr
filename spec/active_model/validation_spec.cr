@@ -94,7 +94,10 @@ describe ActiveModel::Validation do
         person = Person.new
         person.age = nil
         person.valid?.should be_false
-        person.errors.messages.should eq({age: ["\"age\" can't be blank"]})
+        person.errors.messages.should be_a(Hash)
+        person.errors.messages.has_key?(:age).should be_true
+        person.errors.messages[:age].should be_a(Array(String))
+        person.errors.messages[:age].size.should_not eq(0)
       end
     end
   end

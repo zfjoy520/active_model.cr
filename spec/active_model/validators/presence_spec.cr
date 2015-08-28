@@ -6,26 +6,33 @@ end
 
 describe ActiveModel::Validators::PresenceValidator do
   describe "#validate" do
-    context "returns false if" do
-      it "receives empty string" do
+    context "invalid value" do
+      it "returns false for empty string" do
         validator.validate(new_person, :name, "").should be_false
       end
 
-      it "receives nil" do
+      it "returns false for nil" do
         validator.validate(new_person, :name, nil).should be_false
       end
 
-      it "receives false" do
+      it "returns false for false" do
         validator.validate(new_person, :name, false).should be_false
+      end
+
+      it "adds error message" do
+        person = new_person
+        validator.validate(person, :name, false)
+        person.errors.messages.has_key?(:name).should be_true
+        person.errors.messages[:name].first.should eq("\"name\" can't be blank")
       end
     end
 
-    context "returns true if" do
-      it "receives non-empty string" do
+    context "valid value" do
+      it "returns true for non-empty string" do
         validator.validate(new_person, :name, "Something").should be_true
       end
 
-      it "receives true" do
+      it "returns true for true" do
         validator.validate(new_person, :name, true).should be_true
       end
     end
