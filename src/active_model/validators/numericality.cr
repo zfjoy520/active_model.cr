@@ -29,6 +29,11 @@ module ActiveModel
             target = get_comparation_option(:less_than)
             errors.push "\"#{attribute}\" must be less than #{target}" if value >= target
           end
+
+          if compares?(:less_than_or_equal_to)
+            target = get_comparation_option(:less_than_or_equal_to)
+            errors.push "\"#{attribute}\" must be less than or equal to #{target}" if value > target
+          end
         end
 
         record.errors.add(attribute, errors)
