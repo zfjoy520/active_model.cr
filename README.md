@@ -45,8 +45,8 @@ person.attributes # {:name => "Alan", :age => 26}
 * [x] Add method to obtain error messages: `errors`
 * [x] `PresenceValidator`: check if a field is empty
 * [ ] Add other validation rules: `number`, `email`, `length`, `url`, etc.
-* [ ] Allow custom validators with classes
-* [ ] Allow custom validators with closures
+* [ ] Allow custom validators with classes and/or closures
+* [ ] Error messages i18n
 
 ## Contributing
 
