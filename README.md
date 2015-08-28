@@ -1,5 +1,7 @@
 # ActiveModel for Crystal
 
+[![Build Status](https://travis-ci.org/alanwillms/active_model.cr.svg)](https://travis-ci.org/alanwillms/active_model.cr)
+
 This library is an adaptation of Ruby on Rails' ActiveModel to Crystal
 programming language.
 
