@@ -61,6 +61,7 @@ class Foo
   validates :amount, { numericality : { less_than_or_equal_to: 0 } } # <= other number
   validates :amount, { numericality : { odd: true } } # is odd
   validates :amount, { numericality : { even: true } } # is even
+  validates :amount, { numericality : { other_than: 0 } } # != other number
 
 end
 ```
