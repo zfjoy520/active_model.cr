@@ -1,3 +1,5 @@
+require "../../spec_helper"
+
 def validator
   ActiveModel::Validators::PresenceValidator.new
 end
