@@ -38,6 +38,10 @@ module ActiveModel
           if verifies?(:odd)
             errors.push "\"#{attribute}\" must be odd" if (value % 2 == 0)
           end
+
+          if verifies?(:even)
+            errors.push "\"#{attribute}\" must be even" unless (value % 2 == 0)
+          end
         end
 
         record.errors.add(attribute, errors)

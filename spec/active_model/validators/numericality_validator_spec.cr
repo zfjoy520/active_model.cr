@@ -187,5 +187,25 @@ describe ActiveModel::Validators::PresenceValidator do
         person.errors.messages[:age].first.should eq("\"age\" must be odd")
       end
     end
+
+    context "even" do
+      it "returns false for odd numbers" do
+        validator = new_validator({even: true})
+        validator.validate(new_person, :age, 1).should be_false
+      end
+
+      it "returns true for even numbers" do
+        validator = new_validator({even: true})
+        validator.validate(new_person, :age, 2).should be_true
+      end
+
+      it "adds error message for invalid values" do
+        person = new_person
+        validator = new_validator({even: true})
+        validator.validate(person, :age, 1)
+        person.errors.messages.has_key?(:age).should be_true
+        person.errors.messages[:age].first.should eq("\"age\" must be even")
+      end
+    end
   end
 end
