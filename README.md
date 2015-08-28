@@ -1,2 +1,60 @@
-# active_model.cr
-ActiveModel for Crystal
+# ActiveModel for Crystal
+
+This library is an adaptation of Ruby on Rails' ActiveModel to Crystal
+programming language.
+
+## Installation
+
+Add it to `Projectfile`:
+
+```ruby
+deps do
+  github "alanwillms/active_model.cr"
+end
+```
+
+## Usage
+
+```ruby
+require "active_model"
+
+class Person
+  include ActiveModel
+
+  validates :name, { presence: true}
+  validates :age, { presence: true}
+
+  def initialize(@name, @age)
+  end
+end
+
+person = Person.new
+person.valid? # false
+
+person.name = "Alan"
+person.age = 26
+person.valid? # true
+
+person.attributes # {:name => "Alan", :age => 26}
+```
+
+## Roadmap
+
+* [x] Validation methods: `valid?`, `validates(attribute, rules)`
+* [x] Attributes getter: `attributes`
+* [x] `PresenceValidator`: check if a field is empty
+* [ ] Add method to obtain error messages: `errors`
+* [ ] Add other validation rules: `number`, `email`, `length`, `url`, etc.
+* [ ] Add shortcut methods: e.g., `validates_presence_of`.
+
+## Contributing
+
+1. Fork it ( https://github.com/alanwillms/active_model.cr/fork )
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create a new Pull Request
+
+## Contributors
+
+- [alanwillms](https://github.com/alanwillms) Alan Willms - creator, maintainer
