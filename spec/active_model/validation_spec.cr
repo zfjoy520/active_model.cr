@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-describe ActiveModel do
+describe ActiveModel::Validation do
   describe ".validates" do
     it "is accessible" do
       new_person.class.responds_to?(:validates).should be_true
@@ -26,30 +26,61 @@ describe ActiveModel do
     end
   end
 
+  describe ".reset_validators" do
+    it "removes all validators associated with the class" do
+      Person.validates :age, { presence: true }
+      Person.validates :name, { presence: true }
+      Person.reset_validators
+      Person.validators.should eq({} of Symbol => Array(ActiveModel::Validators::AbstractValidator))
+    end
+  end
+
   describe "#valid?" do
     it "is accessible" do
       new_person.responds_to?(:valid?).should be_true
     end
 
-    context "returns true when" do
-      it "has no validations" do
-        new_person.valid?.should be_true
-      end
-
-      it "pass all validations" do
-        Person.validates :age, { presence: true }
-        person = Person.new
-        person.age = 26
+    context "without validation rules" do
+      it "returns always true" do
         new_person.valid?.should be_true
       end
     end
 
-    context "returns false when" do
-      it "fails at any validation" do
+    context "with valid attributes" do
+      it "returns true" do
+        Person.validates :age, { presence: true }
+        person = Person.new
+        person.age = 26
+        person.valid?.should be_true
+      end
+
+      context "after uncessful validation" do
+        it "returns true" do
+          Person.validates :age, { presence: true }
+          person = Person.new
+          person.age = nil
+          person.valid?.should be_false
+          person.age = 26
+          person.valid?.should be_true
+        end
+      end
+    end
+
+    context "with invalid attributes" do
+      it "returns false" do
         Person.validates :age, { presence: true }
         person = Person.new
         person.age = nil
         person.valid?.should be_false
+      end
+
+      it "adds error messages" do
+        Person.reset_validators
+        Person.validates :age, { presence: true }
+        person = Person.new
+        person.age = nil
+        person.valid?.should be_false
+        person.errors.should eq({age: ["\"age\" can't be blank"]})
       end
     end
   end

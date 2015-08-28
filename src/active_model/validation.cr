@@ -14,6 +14,10 @@ module ActiveModel
         @@validators ||= {} of Symbol => Array(Validators::AbstractValidator)
       end
 
+      def self.reset_validators
+        @@validators = {} of Symbol => Array(Validators::AbstractValidator)
+      end
+
       private def self.add_validator(attribute : Symbol, validator_name : Symbol)
         unless validators.has_key?(attribute)
           validators[attribute] = [] of Validators::AbstractValidator
@@ -33,22 +37,17 @@ module ActiveModel
     end
 
     def valid?
+      clear_errors
       validate
+      errors.size == 0
     end
 
-    private def validate
-      succeed = true
-
+    def validate
       self.class.validators.each do |attribute, validators|
         validators.each do |validator|
-          unless validate_with(attribute, validator)
-            succeed = false
-            break
-          end
+          validate_with(attribute, validator)
         end
       end
-
-      succeed
     end
 
     private def validate_with(attribute : Symbol, validator : Validators::AbstractValidator)
