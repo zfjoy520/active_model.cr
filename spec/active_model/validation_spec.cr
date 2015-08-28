@@ -35,6 +35,13 @@ describe ActiveModel::Validation do
     end
   end
 
+  describe "#errors" do
+    it "returns an instance of ActiveModel::Errors" do
+      person = Person.new
+      person.errors.should be_a(ActiveModel::Errors)
+    end
+  end
+
   describe "#valid?" do
     it "is accessible" do
       new_person.responds_to?(:valid?).should be_true
@@ -80,7 +87,7 @@ describe ActiveModel::Validation do
         person = Person.new
         person.age = nil
         person.valid?.should be_false
-        person.errors.should eq({age: ["\"age\" can't be blank"]})
+        person.errors.messages.should eq({age: ["\"age\" can't be blank"]})
       end
     end
   end

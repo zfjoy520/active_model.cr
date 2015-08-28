@@ -36,10 +36,14 @@ module ActiveModel
       end
     end
 
+    def errors
+      @errors ||= Errors.new
+    end
+
     def valid?
-      clear_errors
+      errors.clear
       validate
-      errors.size == 0
+      errors.blank?
     end
 
     def validate
