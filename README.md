@@ -57,6 +57,8 @@ class Foo
   validates :amount, { numericality : { greater_than: 0 } } # > other number
   validates :amount, { numericality : { greater_than_or_equal_to: 0 } } # >= other number
   validates :amount, { numericality : { equal_to: 0 } } # == other number
+  validates :amount, { numericality : { less_than: 0 } } # < other number
+
 end
 ```
 
