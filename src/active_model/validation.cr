@@ -2,11 +2,18 @@ module ActiveModel
   module Validation
     macro included
       def self.validates(attribute : Symbol, validations : Hash)
+        self.validates([attribute], validations)
+      end
+
+      def self.validates(attributes : Array(Symbol), validations : Hash)
         if validations.empty?
           raise ArgumentError.new("You must inform at least one validation rule")
         end
+
         validations.each do |name, value|
-          add_validator(attribute, name)
+          attributes.each do |attribute|
+            add_validator(attribute, name)
+          end
         end
       end
 

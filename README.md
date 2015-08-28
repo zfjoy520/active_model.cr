@@ -21,8 +21,7 @@ require "active_model"
 class Person
   include ActiveModel
 
-  validates :name, { presence: true}
-  validates :age, { presence: true}
+  validates [:name, :age] { presence: true }
 
   def initialize(@name, @age)
   end

@@ -2,10 +2,6 @@ require "../spec_helper"
 
 describe ActiveModel::Validation do
   describe ".validates" do
-    it "is accessible" do
-      new_person.class.responds_to?(:validates).should be_true
-    end
-
     it "requires at least one validation rule" do
       expect_raises ArgumentError, "You must inform at least one validation rule" do
         Person.validates :tentacles, {} of Symbol => Bool
@@ -18,11 +14,26 @@ describe ActiveModel::Validation do
       end
     end
 
-    it "adds a validator to the attribute" do
-      Person.validates :age, { presence: true }
-      Person.validators.has_key?(:age).should be_true
-      Person.validators[:age].should be_a(Array)
-      Person.validators[:age].first.should be_a(ActiveModel::Validators::PresenceValidator)
+    context "with one attribute name" do
+      it "adds a validator to the attribute" do
+        Person.validates :age, { presence: true }
+        Person.validators.has_key?(:age).should be_true
+        Person.validators[:age].should be_a(Array)
+        Person.validators[:age].first.should be_a(ActiveModel::Validators::PresenceValidator)
+      end
+    end
+
+    context "with a list of attribute names" do
+      it "adds a validator to each attribute" do
+        Person.reset_validators
+        Person.validates [:age, :name], { presence: true }
+        Person.validators.has_key?(:age).should be_true
+        Person.validators.has_key?(:name).should be_true
+        Person.validators[:age].should be_a(Array)
+        Person.validators[:name].should be_a(Array)
+        Person.validators[:age].first.should be_a(ActiveModel::Validators::PresenceValidator)
+        Person.validators[:name].first.should be_a(ActiveModel::Validators::PresenceValidator)
+      end
     end
   end
 
@@ -43,10 +54,6 @@ describe ActiveModel::Validation do
   end
 
   describe "#valid?" do
-    it "is accessible" do
-      new_person.responds_to?(:valid?).should be_true
-    end
-
     context "without validation rules" do
       it "returns always true" do
         new_person.valid?.should be_true
