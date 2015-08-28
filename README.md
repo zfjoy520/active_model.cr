@@ -41,6 +41,23 @@ person.valid? # true
 person.attributes # {:name => "Alan", :age => 26}
 ```
 
+## Validators
+
+ActiveModel comes with a set of built-in validators:
+
+```ruby
+class Foo
+
+  # Presence
+  validates :name, { presence : true }
+
+  # Numericality
+  validates :amount, { numericality : true } # is a number
+  validates :amount, { numericality : { only_integer: true } } # is an integer
+  validates :amount, { numericality : { greater_than: 0 } } # > other number
+end
+```
+
 ## Roadmap
 
 * [x] Validation methods: `valid?`, `validates(attribute, rules)`
