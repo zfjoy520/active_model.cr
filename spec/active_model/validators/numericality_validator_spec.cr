@@ -67,5 +67,30 @@ describe ActiveModel::Validators::PresenceValidator do
         person.errors.messages[:age].first.should eq("\"age\" must be greater than 10")
       end
     end
+
+    context "greater than or equal to" do
+      it "returns true for numbers greater than target" do
+        validator = new_validator({greater_than_or_equal_to: 10})
+        validator.validate(new_person, :name, 11).should be_true
+      end
+
+      it "returns false for numbers lower than target" do
+        validator = new_validator({greater_than_or_equal_to: 10})
+        validator.validate(new_person, :name, 9).should be_false
+      end
+
+      it "returns true for numbers equal to target" do
+        validator = new_validator({greater_than_or_equal_to: 10})
+        validator.validate(new_person, :name, 10).should be_true
+      end
+
+      it "adds error message for invalid values" do
+        person = new_person
+        validator = new_validator({greater_than_or_equal_to: 10})
+        validator.validate(person, :age, 9)
+        person.errors.messages.has_key?(:age).should be_true
+        person.errors.messages[:age].first.should eq("\"age\" must be greater than or equal to 10")
+      end
+    end
   end
 end

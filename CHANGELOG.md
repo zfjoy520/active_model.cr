@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 ### Added
 - `NumericalityValidator`: check if a value contains a valid number. Options:
-  `only_integer`, `greater_than`.
+  `only_integer`, `greater_than`, `greater_than_or_equal_to`.
 
 ## 0.0.1 - 2015-08-28
 ### Added

@@ -10,9 +10,14 @@ module ActiveModel
         end
 
         if value.is_a?(Number)
-          if verifies?(:greater_than) && options[:greater_than].is_a?(Number)
-            target = options[:greater_than].to_s.to_f # required because of compilation errors
+          if compares?(:greater_than)
+            target = get_comparation_option(:greater_than)
             errors.push "\"#{attribute}\" must be greater than #{target}" if value <= target
+          end
+
+          if compares?(:greater_than_or_equal_to)
+            target = get_comparation_option(:greater_than_or_equal_to)
+            errors.push "\"#{attribute}\" must be greater than or equal to #{target}" if value < target
           end
         end
 
@@ -23,6 +28,14 @@ module ActiveModel
 
       private def verifies?(option)
         options.has_key?(option) && options[option]
+      end
+
+      private def compares?(comparation_option)
+        verifies?(comparation_option) && options[comparation_option].is_a?(Number)
+      end
+
+      private def get_comparation_option(name)
+        options[name].to_s.to_f # required because of compilation errors
       end
     end
   end
