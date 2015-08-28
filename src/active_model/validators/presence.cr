@@ -1,10 +1,6 @@
 module ActiveModel
   module Validators
     class PresenceValidator < AbstractValidator
-      def get_error_message(attribute)
-        "\"#{attribute}\" can't be blank"
-      end
-
       def validate(record, attribute, value)
         unless validate_value(value)
           record.errors.add(attribute, "\"#{attribute}\" can't be blank")

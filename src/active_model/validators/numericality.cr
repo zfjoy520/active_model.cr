@@ -19,6 +19,11 @@ module ActiveModel
             target = get_comparation_option(:greater_than_or_equal_to)
             errors.push "\"#{attribute}\" must be greater than or equal to #{target}" if value < target
           end
+
+          if compares?(:equal_to)
+            target = get_comparation_option(:equal_to)
+            errors.push "\"#{attribute}\" must be equal to #{target}" if value != target
+          end
         end
 
         record.errors.add(attribute, errors)
