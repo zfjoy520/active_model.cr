@@ -30,6 +30,7 @@ end
 
 person = Person.new
 person.valid? # false
+person.errors.messages # {:name => ["\"name\" can't be blank"], :age => ["\"age\" can't be blank"]}
 
 person.name = "Alan"
 person.age = 26
@@ -42,10 +43,9 @@ person.attributes # {:name => "Alan", :age => 26}
 
 * [x] Validation methods: `valid?`, `validates(attribute, rules)`
 * [x] Attributes getter: `attributes`
+* [x] Add method to obtain error messages: `errors`
 * [x] `PresenceValidator`: check if a field is empty
-* [ ] Add method to obtain error messages: `errors`
 * [ ] Add other validation rules: `number`, `email`, `length`, `url`, etc.
-* [ ] Add shortcut methods: e.g., `validates_presence_of`.
 
 ## Contributing
 
