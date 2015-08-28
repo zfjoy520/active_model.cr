@@ -3,13 +3,12 @@ module ActiveModel
     class NumericalityValidator < AbstractValidator
       def validate(record, attribute, value)
         errors = [] of String
-        if !value.is_a?(Number)
-          errors.push "\"#{attribute}\" is not a number"
-        elsif verifies?(:only_integer) && !value.is_a?(Int)
-          errors.push "\"#{attribute}\" must be an integer"
-        end
 
         if value.is_a?(Number)
+          if verifies?(:only_integer) && !value.is_a?(Int)
+            errors.push "\"#{attribute}\" must be an integer"
+          end
+
           if compares?(:greater_than)
             target = get_comparation_option(:greater_than)
             errors.push "\"#{attribute}\" must be greater than #{target}" if value <= target
@@ -47,6 +46,8 @@ module ActiveModel
           if verifies?(:even)
             errors.push "\"#{attribute}\" must be even" unless (value % 2 == 0)
           end
+        else
+          errors.push "\"#{attribute}\" is not a number"
         end
 
         record.errors.add(attribute, errors)
